@@ -87,15 +87,48 @@ if (contactForm) {
 
 // Toggle skills sections
 function toggleSkills(element) {
-    // Close any other expanded categories
+    const skillsPreview = element.querySelector('.skills-preview');
+    const skillsItems = element.querySelector('.skills-items');
+    const arrow = element.querySelector('h3::after');
+
+    // Toggle the expanded state
+    const isExpanded = element.classList.contains('expanded');
+
+    // First, close any other expanded categories
     document.querySelectorAll('.skills-category.expanded').forEach(category => {
         if (category !== element) {
             category.classList.remove('expanded');
+            // Reset height of other sections
+            const otherPreview = category.querySelector('.skills-preview');
+            const otherItems = category.querySelector('.skills-items');
+            if (otherPreview) otherPreview.style.display = 'grid';
+            if (otherItems) otherItems.style.display = 'none';
         }
     });
 
     // Toggle the clicked category
-    element.classList.toggle('expanded');
+    if (!isExpanded) {
+        element.classList.add('expanded');
+        if (skillsPreview) skillsPreview.style.display = 'none';
+        if (skillsItems) {
+            skillsItems.style.display = 'grid';
+            // Trigger reflow for animation
+            skillsItems.offsetHeight;
+            skillsItems.style.opacity = '1';
+            skillsItems.style.transform = 'translateY(0)';
+        }
+    } else {
+        element.classList.remove('expanded');
+        if (skillsPreview) skillsPreview.style.display = 'grid';
+        if (skillsItems) {
+            skillsItems.style.opacity = '0';
+            skillsItems.style.transform = 'translateY(-10px)';
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                skillsItems.style.display = 'none';
+            }, 300);
+        }
+    }
 }
 
 // Initialize skills sections
@@ -103,5 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make sure all categories start collapsed
     document.querySelectorAll('.skills-category').forEach(category => {
         category.classList.remove('expanded');
+        const skillsItems = category.querySelector('.skills-items');
+        if (skillsItems) {
+            skillsItems.style.display = 'none';
+            skillsItems.style.opacity = '0';
+            skillsItems.style.transform = 'translateY(-10px)';
+        }
+    });
+
+    // Add click event listeners to h3 elements
+    document.querySelectorAll('.skills-category h3').forEach(header => {
+        header.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event from bubbling to parent
+            const category = header.closest('.skills-category');
+            if (category) {
+                toggleSkills(category);
+            }
+        });
     });
 }); 

@@ -241,6 +241,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: var(--transition);
+    position: relative;
+}
+
+.skills-category h3:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
 }
 
 .skills-category h3::after {
@@ -248,6 +257,7 @@ body {
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     transition: transform 0.3s ease;
+    margin-left: 0.5rem;
 }
 
 .skills-category.expanded h3::after {
@@ -259,6 +269,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 0.75rem;
     margin-bottom: 0.5rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .skills-items {
@@ -272,13 +283,8 @@ body {
 }
 
 .skills-category.expanded .skills-items {
-    display: grid;
     opacity: 1;
     transform: translateY(0);
-}
-
-.skills-category.expanded .skills-preview {
-    display: none;
 }
 
 .skill-item {
