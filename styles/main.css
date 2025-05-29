@@ -11,6 +11,8 @@
     --nav-height: 70px;
     --border-radius: 8px;
     --transition: all 0.3s ease;
+    --formal-education-color: #FF8C42;
+    --formal-education-border: #FFD700;
 }
 
 /* Reset y estilos base */
@@ -858,15 +860,48 @@ body {
 
 /* Formal Education Styling */
 .education-formal .timeline-content {
-    background: rgba(64, 224, 208, 0.1);
-    border-color: var(--primary-color);
+    background: rgba(255, 140, 66, 0.15);
+    border: 1px solid var(--formal-education-border);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
 }
 
 .education-formal .timeline-content h3 {
-    color: var(--primary-color);
+    color: var(--formal-education-color);
     font-size: 1.3rem;
+    text-shadow: 0 0 10px rgba(255, 140, 66, 0.3);
 }
 
+.education-formal .timeline-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+    border-color: var(--formal-education-border);
+}
+
+.education-formal .timeline-date {
+    color: var(--formal-education-color);
+    opacity: 0.9;
+}
+
+.education-formal .education-details li::before {
+    color: var(--formal-education-color);
+}
+
+/* Timeline date styling */
+.timeline-date {
+    color: var(--primary-color);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+.timeline-content:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Education Details */
 .education-details {
     list-style: none;
     padding: 0;
