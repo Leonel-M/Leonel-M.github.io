@@ -1,14 +1,11 @@
 // Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+const anchors = document.querySelectorAll('a[href^="#"]');
+anchors.forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        
         if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 });
@@ -25,7 +22,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Animate skill bars
+// Animate skill bars (when visible)
 const animateSkills = () => {
     document.querySelectorAll('.skill-level').forEach(skill => {
         const level = skill.getAttribute('data-level');
@@ -34,29 +31,26 @@ const animateSkills = () => {
     });
 };
 
-// Observer to trigger animations when elements are visible
-const observer = new IntersectionObserver((entries) => {
+// Intersection Observer for animations
+const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             if (entry.target.classList.contains('skills-grid')) {
                 animateSkills();
             }
             entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
         }
     });
-}, {
-    threshold: 0.1
-});
+}, { threshold: 0.2 });
 
-// Observe sections for animations
 document.querySelectorAll('.section').forEach(section => {
     observer.observe(section);
 });
 
-// Mobile menu
+// Mobile menu toggle
 const menuBtn = document.querySelector('.menu-btn');
 const navLinks = document.querySelector('.nav-links');
-
 if (menuBtn) {
     menuBtn.addEventListener('click', () => {
         navLinks.classList.toggle('active');
@@ -64,7 +58,7 @@ if (menuBtn) {
     });
 }
 
-// Close mobile menu when clicking a link
+// Close mobile menu on link click
 document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         if (window.innerWidth <= 768) {
@@ -74,84 +68,35 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// Handle contact form
+// Contact form submission
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // Here you can add the logic to handle form submission
         alert('Thank you for your message. I will get back to you soon.');
         contactForm.reset();
     });
 }
 
-// Toggle skills sections
-function toggleSkills(element) {
-    const skillsPreview = element.querySelector('.skills-preview');
-    const skillsItems = element.querySelector('.skills-items');
-    const arrow = element.querySelector('h3::after');
-
-    // Toggle the expanded state
-    const isExpanded = element.classList.contains('expanded');
-
-    // First, close any other expanded categories
-    document.querySelectorAll('.skills-category.expanded').forEach(category => {
-        if (category !== element) {
-            category.classList.remove('expanded');
-            // Reset height of other sections
-            const otherPreview = category.querySelector('.skills-preview');
-            const otherItems = category.querySelector('.skills-items');
-            if (otherPreview) otherPreview.style.display = 'grid';
-            if (otherItems) otherItems.style.display = 'none';
-        }
-    });
-
-    // Toggle the clicked category
-    if (!isExpanded) {
-        element.classList.add('expanded');
-        if (skillsPreview) skillsPreview.style.display = 'none';
-        if (skillsItems) {
-            skillsItems.style.display = 'grid';
-            // Trigger reflow for animation
-            skillsItems.offsetHeight;
-            skillsItems.style.opacity = '1';
-            skillsItems.style.transform = 'translateY(0)';
-        }
-    } else {
-        element.classList.remove('expanded');
-        if (skillsPreview) skillsPreview.style.display = 'grid';
-        if (skillsItems) {
-            skillsItems.style.opacity = '0';
-            skillsItems.style.transform = 'translateY(-10px)';
-            // Wait for animation to complete before hiding
-            setTimeout(() => {
-                skillsItems.style.display = 'none';
-            }, 300);
-        }
-    }
-}
-
-// Initialize skills sections
+// Accordion for Skills Section: open only clicked category
+/*
 document.addEventListener('DOMContentLoaded', () => {
-    // Make sure all categories start collapsed
-    document.querySelectorAll('.skills-category').forEach(category => {
-        category.classList.remove('expanded');
-        const skillsItems = category.querySelector('.skills-items');
-        if (skillsItems) {
-            skillsItems.style.display = 'none';
-            skillsItems.style.opacity = '0';
-            skillsItems.style.transform = 'translateY(-10px)';
-        }
-    });
-
-    // Add click event listeners to h3 elements
-    document.querySelectorAll('.skills-category h3').forEach(header => {
-        header.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent event from bubbling to parent
-            const category = header.closest('.skills-category');
-            if (category) {
-                toggleSkills(category);
-            }
+    const toggles = document.querySelectorAll('.skills-toggle');
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const category = toggle.closest('.skills-category');
+            if (!category) return;
+            // Close all other categories
+            document.querySelectorAll('.skills-category').forEach(cat => {
+                if (cat !== category) {
+                    cat.classList.remove('active');
+                }
+            });
+            // Toggle this one
+            category.classList.toggle('active');
         });
     });
-}); 
+    // Ensure all start collapsed
+    document.querySelectorAll('.skills-category').forEach(cat => cat.classList.remove('active'));
+});
+*/
