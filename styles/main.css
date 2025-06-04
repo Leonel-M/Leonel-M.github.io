@@ -20,6 +20,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: 14px;
 }
 
 body {
@@ -918,5 +919,9 @@ body {
 
     .timeline-content::before {
         left: -2rem !important;
+    }
+
+    .hero-image{
+        padding-top: 1.5em;
     }
 } 
