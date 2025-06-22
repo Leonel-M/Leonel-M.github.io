@@ -511,10 +511,7 @@
     </footer>
 
     <script src="js/main.js"></script>
-</body>
-</html> 
-
-<script>
+    <script>
   const form = document.getElementById("contact-form");
 
   form.addEventListener("submit", function (e) {
@@ -526,9 +523,8 @@
       message: form.message.value
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbwFJ3PJFwE5coV_j9v3bDn07h-KRNEwOya6ef5OlP3gGO03cC0YfaG7_7zTG8-ZO50W/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbx7.../exec", {
       method: "POST",
-      mode: "cors", // importante para evitar errores CORS
       headers: {
         "Content-Type": "application/json"
       },
@@ -536,12 +532,14 @@
     })
     .then(response => response.text())
     .then(data => {
-      alert("Message sent: " + data);
+      alert("✅ Message sent: " + data);
       form.reset();
     })
     .catch(error => {
-      alert("Error sending message.");
+      alert("❌ Error sending message.");
       console.error("Fetch error:", error);
     });
   });
-</script>
+    </script>
+</body>
+</html> 
