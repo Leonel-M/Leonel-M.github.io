@@ -130,6 +130,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="project-card">
+    <div class="project-image">
+        <img src="assets/order_inventory_app.png" alt="Order & Inventory Management App">
+    </div>
+    <div class="project-content">
+        <h3>Order & Inventory Management App</h3>
+        <p>I developed a custom Streamlit web application to help a small Venezuelan design and production company manage orders and inventory. The app allows client and product registration, multi-currency material tracking, and real-time dashboards for pending and overdue orders. It also generates 90-day and monthly reports to support decision-making. The project was deployed in a low-connectivity environment with local Dropbox sync for offline access.</p>
+        <div class="project-tech">
+            <span>Python</span>
+            <span>Streamlit</span>
+            <span>Pandas</span>
+            <span>Matplotlib</span>
+            <span>CSV</span>
+            <span>Dashboard</span>
+        </div>
+        <div class="project-links">
+            <a href="https://github.com/Leonel-M/Order-and-Warehouse-Management-Application" class="project-link" target="_blank">
+                <i class="fab fa-github"></i> Code
+            </a>
+            <a href="https://drive.google.com/file/d/1DDJ3w-2Mt0Qo2P92qFayGm9hBbkjhWPx/view?usp=drive_link" class="project-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Inform
+            </a>
+        </div>
+    </div>
+</div>
+
             </div>
         </div>
     </section>
@@ -143,7 +169,6 @@
                 <div class="skills-category">
                     <div class="skills-toggle">
                         <h3>Languages & Tools</h3>
-                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="skills-content">
                         <ul>
@@ -183,7 +208,6 @@
                 <div class="skills-category">
                     <div class="skills-toggle">
                         <h3>Libraries</h3>
-                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="skills-content">
                         <ul>
@@ -219,7 +243,6 @@
                 <div class="skills-category">
                     <div class="skills-toggle">
                         <h3>Software</h3>
-                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="skills-content">
                         <ul>
@@ -251,7 +274,6 @@
                 <div class="skills-category">
                     <div class="skills-toggle">
                         <h3>Hardware/IoT</h3>
-                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="skills-content">
                         <ul>
@@ -267,7 +289,6 @@
                 <div class="skills-category">
                     <div class="skills-toggle">
                         <h3>Soft Skills</h3>
-                        <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="skills-content">
                         <ul>
@@ -300,6 +321,14 @@
             <h2 class="section-title">Education & Certifications</h2>
             <div class="timeline">
                 <!-- Certifications (Most Recent First) -->
+                <div class="timeline-item education-formal">
+                    <div class="timeline-content">
+                        <h3>Python</h3>
+                        <p class="timeline-date">Feb. – Jun. 2025</p>
+                        <p class="institution">ReDI School of Digital Integration</p>
+                    </div>
+                </div>
+
                 <div class="timeline-item">
                     <div class="timeline-content">
                         <h3>Data Analysis and Visualization</h3>
@@ -316,11 +345,16 @@
                     </div>
                 </div>
 
-                <div class="timeline-item">
+                <div class="timeline-item education-formal">
                     <div class="timeline-content">
                         <h3>Intro to Code, Data, and Design</h3>
                         <p class="timeline-date">Sep. – Dec. 2024</p>
                         <p class="institution">ReDI School of Digital Integration</p>
+                        <ul class="education-details">
+                            <li>Computer science and programming</li>
+                            <li>Data analytics</li>
+                            <li>User experience and interaction design</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -471,7 +505,7 @@
             <div class="footer-content">
                 <p>&copy; 2025 Leonel Márquez. All rights reserved.</p>
                 <p>Licensed under MIT</p>
-                <p>Based in Bogotá, Colombia</p>
+                <p>Based Colombia</p>
             </div>
         </div>
     </footer>
@@ -479,3 +513,31 @@
     <script src="js/main.js"></script>
 </body>
 </html> 
+
+<script>
+  const form = document.getElementById("contact-form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value
+    };
+    fetch("https://script.google.com/macros/s/AKfycbwFJ3PJFwE5coV_j9v3bDn07h-KRNEwOya6ef5OlP3gGO03cC0YfaG7_7zTG8-ZO50W/exec", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.text())
+    .then(data => {
+      alert("Message sent successfully!");
+      form.reset();
+    })
+    .catch(error => {
+      alert("Error sending message.");
+      console.error(error);
+    });
+  });
+</script>
