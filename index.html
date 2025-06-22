@@ -514,24 +514,22 @@
     <script>
     document.addEventListener("DOMContentLoaded", function () {
         const form = document.getElementById("contact-form");
-
-        form.addEventListener("submit", function (e) {
+        form.addEventListener("submit", e => {
         e.preventDefault();
-
-        const formData = new FormData(form);
-
-        fetch("https://script.google.com/macros/s/AKfycbwFJ3PJFwE5coV_j9v3bDn07h-KRNEwOya6ef5OlP3gGO03cC0YfaG7_7zTG8-ZO50W/exec", {
+        const datos = new URLSearchParams(new FormData(form));
+        fetch("TU_URL_DE_WEB_APP", {
             method: "POST",
-            body: formData
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: datos
         })
-        .then(response => response.text())
-        .then(data => {
-            alert("✅ Message sent: " + data);
+        .then(res => res.text())
+        .then(msg => {
+            alert("✅ Mensaje enviado: " + msg);
             form.reset();
         })
-        .catch(error => {
-            alert("❌ Error sending message.");
-            console.error("Fetch error:", error);
+        .catch(err => {
+            alert("❌ Error al enviar mensaje");
+            console.error(err);
         });
         });
     });
