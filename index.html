@@ -512,34 +512,30 @@
 
     <script src="js/main.js"></script>
     <script>
-  const form = document.getElementById("contact-form");
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("contact-form");
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+        form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    const formData = {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value
-    };
+        const formData = new FormData(form);
 
-    fetch("https://script.google.com/macros/s/AKfycbx7.../exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
-    .then(response => response.text())
-    .then(data => {
-      alert("✅ Message sent: " + data);
-      form.reset();
-    })
-    .catch(error => {
-      alert("❌ Error sending message.");
-      console.error("Fetch error:", error);
+        fetch("https://script.google.com/macros/s/AKfycbyBEtFLJIsN81Lz3xaWN7dsaQ0xDMrMcfYITQwguEc/dev", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert("✅ Message sent: " + data);
+            form.reset();
+        })
+        .catch(error => {
+            alert("❌ Error sending message.");
+            console.error("Fetch error:", error);
+        });
+        });
     });
-  });
     </script>
+
 </body>
 </html> 
