@@ -540,31 +540,41 @@
 
     <script src="js/main.js"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("contact-form");
-    form.addEventListener("submit", e => {
+
+    form.addEventListener("submit", async e => {
         e.preventDefault();
 
-        fetch("TU_SCRIPT_URL", {
-        method: "POST",
-        body: new FormData(form)
-        })
-        .then(res => res.json())
-        .then(json => {
-        if (json.result === "success") {
+        try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwFJ3PJFwE5coV_j9v3bDn07h-KRNEwOya6ef5OlP3gGO03cC0YfaG7_7zTG8-ZO50W/exec", {
+            method: "POST",
+            body: new FormData(form)
+        });
+
+        // Mostrar en consola lo que llega, para depurar
+        console.log("HTTP", response.status, response.statusText);
+        const text  = await response.text();
+        console.log("Respuesta bruta:", text);
+
+        let data;
+        try { data = JSON.parse(text); }
+        catch(_) { throw new Error("Respuesta no es JSON"); }
+
+        if (response.ok && data.result === "success") {
             alert("✅ Mensaje enviado con éxito");
             form.reset();
         } else {
-            alert("❌ Error al enviar: " + json.error);
+            alert("❌ Error al enviar:\n" + (data.error||JSON.stringify(data)));
         }
-        })
-        .catch(err => {
+        } catch (err) {
         console.error("Fetch error:", err);
-        alert("❌ Error de red al enviar el formulario");
-        });
+        alert("❌ Error de red o parsing:\n" + err.message);
+        }
     });
     });
     </script>
+
 
 
 </body>
