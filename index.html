@@ -523,6 +523,8 @@
                     </div>
                     <button type="submit" class="primary-btn">Send Message</button>
                 </form>
+                <iframe name="hidden_iframe" style="display:none;"></iframe>
+
             </div>
         </div>
     </section>
@@ -541,81 +543,15 @@
     <script src="js/main.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("contact-form");
-        form.addEventListener("submit", async e => {
-            e.preventDefault();
-
-            const url = "TU_SCRIPT_URL";
-            const formData = new FormData(form);
-
-            // 1. Log del endpoint y del contenido del formulario
-            console.log("→ Enviando a:", url);
-            console.log("→ Contenido FormData:");
-            for (const [key, value] of formData.entries()) {
-            console.log(`   • ${key} = ${value}`);
-            }
-
-            // 2. Opciones de fetch
-            const options = {
-            method: "POST",
-            mode:   "cors",      // prueba también con 'no-cors' si sigue fallando
-            body:   formData
-            };
-            console.log("→ Opciones fetch:", options);
-
-            try {
-            // 3. Envío y primer log de la respuesta
-            const response = await fetch(url, options);
-            console.log("→ Response object:", response);
-            console.log(`   Status: ${response.status} ${response.statusText}`);
-
-            // 4. Cabeceras de respuesta
-            console.log("→ Headers:");
-            response.headers.forEach((v, k) => console.log(`   ${k}: ${v}`));
-
-            // 5. Cuerpo crudo
-            const text = await response.text();
-            console.log("→ Body (raw):", text);
-
-            // 6. Intento de JSON.parse
-            let data;
-            try {
-                data = JSON.parse(text);
-                console.log("→ JSON parsed:", data);
-            } catch(parseError) {
-                console.warn("→ No es JSON válido:", parseError);
-            }
-
-            // 7. Alert y reset según status
-            if (response.ok && data && data.result === "success") {
+        document.getElementById("contact-form")
+            .addEventListener("submit", function(){
+            // Dejamos que el form haga el POST en el iframe
+            setTimeout(() => {
                 alert("✅ Mensaje enviado con éxito");
-                form.reset();
-            } else {
-                alert("❌ El servidor devolvió un error. Revisa la consola.");
-            }
-            } catch (err) {
-            // 8. Error de red / CORS
-            console.error("✖ Fetch error:", err);
-            console.error("   Name:", err.name);
-            console.error("   Message:", err.message);
-            console.error("   Stack:", err.stack);
-            alert("❌ Error de red o CORS. Mira la consola para más detalles.");
-            }
-        });
-        });
-    </script>
-
-    <script>
-        document.getElementById("contact-form").addEventListener("submit", function(){
-        // Abrimos el iframe, y esperamos medio segundo a que el POST llegue
-        setTimeout(() => {
-            alert("✅ Mensaje enviado con éxito");
-            this.reset();
-        }, 500);
-        // Devolvemos true para que el form realmente haga el POST
-        return true;
-        });
+                this.reset();
+            }, 500);
+            return true;  // muy importante para que el form envíe
+            });
     </script>
 
 
