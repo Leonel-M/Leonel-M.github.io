@@ -541,29 +541,71 @@
     <script src="js/main.js"></script>
 
     <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contact-form");
-  form.addEventListener("submit", async e => {
-    e.preventDefault();
+        document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("contact-form");
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
 
-    // Envío sin CORS (la respuesta será "opaca", no legible)
-    fetch("https://script.google.com/macros/s/AKfycbwFJ3PJFwE5coV_j9v3bDn07h-KRNEwOya6ef5OlP3gGO03cC0YfaG7_7zTG8-ZO50W/exec", {
-      method: "POST",
-      mode:   "no-cors",             // evita el preflight CORS
-      body:   new FormData(form)     // envía name, email, message
-    })
-    .then(() => {
-      // Asumimos éxito porque no podemos leer la respuesta
-      alert("✅ Mensaje enviado con éxito");
-      form.reset();
-    })
-    .catch(err => {
-      console.error("Fetch error:", err);
-      alert("❌ Error de red al enviar el formulario");
-    });
-  });
-});
-</script>
+            const url = "TU_SCRIPT_URL";
+            const formData = new FormData(form);
+
+            // 1. Log del endpoint y del contenido del formulario
+            console.log("→ Enviando a:", url);
+            console.log("→ Contenido FormData:");
+            for (const [key, value] of formData.entries()) {
+            console.log(`   • ${key} = ${value}`);
+            }
+
+            // 2. Opciones de fetch
+            const options = {
+            method: "POST",
+            mode:   "cors",      // prueba también con 'no-cors' si sigue fallando
+            body:   formData
+            };
+            console.log("→ Opciones fetch:", options);
+
+            try {
+            // 3. Envío y primer log de la respuesta
+            const response = await fetch(url, options);
+            console.log("→ Response object:", response);
+            console.log(`   Status: ${response.status} ${response.statusText}`);
+
+            // 4. Cabeceras de respuesta
+            console.log("→ Headers:");
+            response.headers.forEach((v, k) => console.log(`   ${k}: ${v}`));
+
+            // 5. Cuerpo crudo
+            const text = await response.text();
+            console.log("→ Body (raw):", text);
+
+            // 6. Intento de JSON.parse
+            let data;
+            try {
+                data = JSON.parse(text);
+                console.log("→ JSON parsed:", data);
+            } catch(parseError) {
+                console.warn("→ No es JSON válido:", parseError);
+            }
+
+            // 7. Alert y reset según status
+            if (response.ok && data && data.result === "success") {
+                alert("✅ Mensaje enviado con éxito");
+                form.reset();
+            } else {
+                alert("❌ El servidor devolvió un error. Revisa la consola.");
+            }
+            } catch (err) {
+            // 8. Error de red / CORS
+            console.error("✖ Fetch error:", err);
+            console.error("   Name:", err.name);
+            console.error("   Message:", err.message);
+            console.error("   Stack:", err.stack);
+            alert("❌ Error de red o CORS. Mira la consola para más detalles.");
+            }
+        });
+        });
+    </script>
+
 
 
 
