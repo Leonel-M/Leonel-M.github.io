@@ -52,13 +52,7 @@ To run this project locally:
    cd Leonel-M.github.io
    ```
 3. Open `index.html` in your browser
-
-## 📫 Contact
-
-- Email: leonel.amarquez92@gmail.com
-- LinkedIn: [Your LinkedIn Profile]
-- GitHub: [Leonel-M](https://github.com/Leonel-M)
-
+   
 ## 📝 License
 
 This project is open source and available under the MIT License.
