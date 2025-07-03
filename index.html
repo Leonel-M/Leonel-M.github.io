@@ -495,10 +495,12 @@
             <h2 class="section-title">Contact</h2>
             <div class="contact-content">
                 <div class="contact-info">
-<!--                    <div class="contact-item">
+                    <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:leonel.amarquez92@gmail.com">leonel.amarquez92@gmail.com</a>
-                    </div> -->
+                        <a href="mailto:&#108;&#101;&#111;&#110;&#101;&#108;&#46;&#97;&#109;&#97;&#114;&#113;&#117;&#101;&#122;&#57;&#50;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">
+                        &#108;&#101;&#111;&#110;&#101;&#108;&#46;&#97;&#109;&#97;&#114;&#113;&#117;&#101;&#122;&#57;&#50;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;
+                        </a>
+                    </div>
                     <div class="contact-item">
                         <i class="fab fa-linkedin"></i>
                         <a href="https://www.linkedin.com/in/leonel-marquez-sanchez/" target="_blank">LinkedIn</a>
@@ -508,7 +510,7 @@
                         <a href="https://github.com/Leonel-M" target="_blank">GitHub</a>
                     </div>
                 </div>
-                <form id="contact-form" class="contact-form" method="POST" target="hidden_iframe" action="https://script.google.com/macros/s/AKfycbwFJ3PJFwE5coV_j9v3bDn07h-KRNEwOya6ef5OlP3gGO03cC0YfaG7_7zTG8-ZO50W/exec">
+<!--                <form id="contact-form" class="contact-form" method="POST" target="hidden_iframe" action="https://script.google.com/macros/s/AKfycbwFJ3PJFwE5coV_j9v3bDn07h-KRNEwOya6ef5OlP3gGO03cC0YfaG7_7zTG8-ZO50W/exec">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
@@ -524,7 +526,7 @@
                     <button type="submit" class="primary-btn">Send Message</button>
                 </form>
                 <iframe name="hidden_iframe" style="display:none;"></iframe>
-
+            -->
             </div>
         </div>
     </section>
@@ -541,20 +543,6 @@
     </footer>
 
     <script src="js/main.js"></script>
-
-    <script>
-        document.getElementById("contact-form")
-            .addEventListener("submit", function(){
-            // Dejamos que el form haga el POST en el iframe
-            setTimeout(() => {
-                alert("✅ Mensaje enviado con éxito");
-                this.reset();
-            }, 500);
-            return true;  // muy importante para que el form envíe
-            });
-    </script>
-
-
 
 
 </body>
